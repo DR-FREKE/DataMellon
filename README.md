@@ -1,5 +1,14 @@
 # Getting Started with Create React App
 
+This is the Instruction for code deployment
+
+## Deployment
+
+the app was deployed to netlify by creating a connection from github to netlify
+
+to initiate the app, run yarn or yarn install
+to run test run yarn test:watch
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
