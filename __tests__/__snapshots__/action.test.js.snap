@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test async redux actions should run test that it dispatches LOADING 1`] = `
+Array [
+  Object {
+    "type": "LOADING",
+  },
+]
+`;
+
+exports[`test async redux actions should test for ERROR_OCCURED 1`] = `
+Array [
+  Object {
+    "payload": "fetch is not defined",
+    "type": "ERROR_OCCURED",
+  },
+]
+`;
+
+exports[`test async redux actions should test that it dispatches SEND_DATA 1`] = `
+Array [
+  Object {
+    "payload": "fetch is not defined",
+    "type": "ERROR_OCCURED",
+  },
+]
+`;
+
+exports[`test for filteration should test for FILTER_DATA 1`] = `
+Array [
+  Object {
+    "payload": "Cannot destructure property 'profit' of '((cov_21m8n1e0um(...).s[1]++) , input_data)' as it is null.",
+    "type": "ERROR_OCCURED",
+  },
+]
+`;
+
+exports[`test for filteration should test for loading 1`] = `
+Array [
+  Object {
+    "type": "LOADING",
+  },
+]
+`;
