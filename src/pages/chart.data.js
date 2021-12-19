@@ -1,0 +1,16 @@
+export const processTableData = (data, index) => ({
+  Sales: parseInt(data.Sales),
+  "Order ID": data["Order ID"],
+  Profit: data.Profit,
+  City: data.City,
+  "Customer Name": data["Customer Name"],
+  "Product Name": data["Product Name"],
+  Country: data.Country,
+  Region: data.Region,
+  Discount: data.Discount,
+  Quantity: data.Quantity,
+  State: data.State,
+  "Ship Mode": data["Ship Mode"],
+  "Ship Date": data["Ship Date"],
+  Category: data.Category,
+});
