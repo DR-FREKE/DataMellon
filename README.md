@@ -9,6 +9,10 @@ the app was deployed to netlify by creating a connection from github to netlify
 to initiate the app, run yarn or yarn install
 to run test run yarn test:watch
 
+## P.S
+
+I could not complete the filtering as I ran out of time but it is 90% done.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
