@@ -79,7 +79,7 @@ export const SelectField = forwardRef(
                                 {selected ? (
                                   <span
                                     className={classNames(
-                                      active ? "text-white" : "text-red-800",
+                                      active ? "text-white" : "text-rose-500",
                                       "absolute inset-y-0 right-0 flex items-center pr-4"
                                     )}
                                   >
