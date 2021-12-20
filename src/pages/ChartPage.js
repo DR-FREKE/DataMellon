@@ -6,41 +6,42 @@ import AppCompositeBar from "../components/Widgets/Charts/CompositeBarchart";
 import AppPieChart from "../components/Widgets/Charts/PieChart";
 import TimeSeries from "../components/Widgets/Charts/TimeSeries";
 import Table from "../components/Widgets/Table/Table";
-import { postAction, filterAction } from "../store/actions/action.creator";
+import {
+  postAction,
+  filterAction,
+  setOriginalData,
+} from "../store/actions/action.creator";
 import { SEND_TEST } from "../store/actions/action.types";
 import { useForm } from "react-hook-form";
 import { SelectField } from "../components/Widgets/Form/Form";
 import { processTableData } from "./chart.data";
 import chartData, { processChartData } from "../utils/ChartData";
 import { IoMdOptions } from "react-icons/io";
+import { FiRefreshCcw } from "react-icons/fi";
+import { Button } from "../components/Widgets/Button/Button";
 
 const ChartPage = props => {
-  const [appchart, setAppChart] = useState([]);
   const { handleSubmit, formState, setValue, register, control } = useForm({
     mode: "onChange",
   });
-  const chart_data = chartData(appchart.map(processChartData));
+  const data = {
+    angular_test: "angular-developer",
+  };
+  const chart_data = chartData(props.charts.map(processChartData));
 
   useEffect(() => {
-    const data = {
-      angular_test: "angular-developer",
-    };
     props.postAction(SEND_TEST, data);
   }, []);
 
-  useEffect(() => {
-    if (props.filtering == true) {
-      setAppChart(props.filtered_chart);
-    } else {
-      setAppChart(props.charts);
-    }
-  }, [props.filtering]);
-
-  const tableInfo = appchart?.slice(0, 10).map(processTableData);
+  const tableInfo = props.charts?.slice(0, 10).map(processTableData);
 
   const onSubmit = data => {
-    props.filterAction(props.charts, data);
-    // alert(JSON.stringify(props.charts));
+    props.filterAction(props.data_origin, data);
+  };
+
+  const handleRefresh = e => {
+    e.preventDefault();
+    props.postAction(SEND_TEST, data);
   };
 
   return (
@@ -52,7 +53,7 @@ const ChartPage = props => {
         >
           <div
             className="md:grid md:grid-cols-3 grid-cols-2 gap-4"
-            style={{ width: "97%" }}
+            style={{ width: "85%" }}
           >
             <SelectField
               defaultValue="Select Profit"
@@ -78,20 +79,19 @@ const ChartPage = props => {
               {...register("sales", { required: false })}
             />
           </div>
-          <button
-            className="flex justify-center items-center"
-            style={{
-              backgroundColor: "#EFEFEF",
-              width: "3%",
-              marginLeft: "10px",
-              padding: "8px",
-              borderRadius: "5px",
-              boxShadow: "0 0 3px #BBBBBB",
-              cursor: "pointer",
-            }}
-          >
-            <IoMdOptions size={25} color="#AAAAAA" />
-          </button>
+          <div style={{ width: "15%" }} className="flex justify-end">
+            <Button
+              icon={<IoMdOptions />}
+              name="Filter"
+              className="mr-3 ml-3 w-4/5"
+            />
+            <Button
+              icon={<FiRefreshCcw />}
+              name="Refresh"
+              className="ml-1 w-4/5"
+              onPress={handleRefresh}
+            />
+          </div>
         </form>
       </div>
       <div className="flex flex-col bg-purple-50 rounded-md pb-5">
@@ -125,11 +125,12 @@ const ChartPage = props => {
 
 const mapStateToProps = state => ({
   loading: state.chart.loading,
-  filtering: state.chart.filtering,
   charts: state.chart?.data,
-  filtered_chart: state.chart?.filtered_data,
+  data_origin: state.chart?.origin_data,
 });
 
-export default connect(mapStateToProps, { postAction, filterAction })(
-  ChartPage
-);
+export default connect(mapStateToProps, {
+  postAction,
+  filterAction,
+  setOriginalData,
+})(ChartPage);

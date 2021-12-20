@@ -31,3 +31,9 @@ export const filterAction =
       dispatch({ type: ERROR_OCCURED, payload: error.message });
     }
   };
+
+export const setOriginalData = payload => {
+  alert(JSON.stringify(payload));
+  // type: "SET_ORIGINAL_DATA",
+  // payload,
+};

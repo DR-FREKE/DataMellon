@@ -58,7 +58,7 @@ export const SelectField = forwardRef(
                                 active
                                   ? "text-white bg-gray-400"
                                   : "text-gray-900",
-                                "cursor-default select-none relative py-2 pl-3 pr-9 outline-none hover:text-white"
+                                "cursor-default select-none relative py-2 pl-3 pr-9 outline-none"
                               )
                             }
                             value={content}
