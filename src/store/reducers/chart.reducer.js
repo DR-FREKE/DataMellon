@@ -25,12 +25,14 @@ const postChartReducer = (state = initialState, action) => {
         filtering: false,
         data: action.payload.data,
         origin_data: action.payload.data,
+        total: action.payload.total,
       };
     case FILTER_DATA:
       return {
         ...state,
         loading: false,
         data: action.payload.data,
+        total: action.payload.total,
       };
     case ERROR_OCCURED:
       return {

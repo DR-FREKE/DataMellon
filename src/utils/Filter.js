@@ -9,7 +9,8 @@ const filterData = (filter_data, input_data) => {
     const filtered_data = filter_data.filter(compareData(from, to, year));
 
     const data = filtered_data;
-    return { data };
+    const total = data.length;
+    return { data, total };
   }
 };
 

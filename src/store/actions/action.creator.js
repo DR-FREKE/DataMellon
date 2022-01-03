@@ -13,8 +13,8 @@ export const postAction =
   async dispatch => {
     dispatch({ type: LOADING });
     try {
-      const { data } = await fetchFn(app_data);
-      dispatch({ type, payload: { data } });
+      const { data, total } = await fetchFn(app_data);
+      dispatch({ type, payload: { data, total } });
     } catch (error) {
       dispatch({ type: ERROR_OCCURED, payload: error.message });
     }
@@ -25,8 +25,8 @@ export const filterAction =
   async dispatch => {
     dispatch({ type: LOADING });
     try {
-      const { data } = filterFn(data_array, app_data);
-      dispatch({ type: FILTER_DATA, payload: { data } });
+      const { data, total } = filterFn(data_array, app_data);
+      dispatch({ type: FILTER_DATA, payload: { data, total } });
     } catch (error) {
       dispatch({ type: ERROR_OCCURED, payload: error.message });
     }

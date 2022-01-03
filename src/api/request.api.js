@@ -8,7 +8,8 @@ export const sendRequest = async data => {
 
   if (response.ok) {
     const data = await response.json();
-    return { data };
+    const total = data.length;
+    return { data, total };
   } else {
     const error = await response.json();
     throw new Error(error);

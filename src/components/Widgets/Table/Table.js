@@ -1,15 +1,46 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { FiEdit, FiEye, FiTrash } from "react-icons/fi";
 import { IoWarning } from "react-icons/io5";
 import { Loader } from "../Loader/Loader";
 import { TableDiv } from "./table.style";
+import { Pagination } from "../Pagination/Pagination";
+
+const NUMBER_ON_PAGE = 10;
 
 const Table = props => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [begin, setBegin] = useState(0);
+  const [end, setEnd] = useState(10);
   const key =
     props.tableData &&
     props.tableData.length > 0 &&
     Object.keys(props.tableData[0]);
+
+  useEffect(() => {
+    if (currentPage) {
+      const current_begin = (currentPage - 1) * NUMBER_ON_PAGE;
+      const current_end = current_begin + NUMBER_ON_PAGE;
+
+      setBegin(current_begin);
+      setEnd(current_end);
+    }
+  }, [currentPage]);
+
+  const handleNext = () => {
+    //get number on a Page
+    const numberOnPage = parseInt(Math.ceil(props.total / NUMBER_ON_PAGE));
+
+    if (currentPage != numberOnPage) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePrevious = () => {
+    if (currentPage != 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
 
   return (
     <>
@@ -49,7 +80,7 @@ const Table = props => {
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   {props.tableData &&
-                    props.tableData.map((content, index) => (
+                    props.tableData.slice(begin, end).map((content, index) => (
                       <tr key={index}>
                         {key.map(key_name => (
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -64,6 +95,15 @@ const Table = props => {
           </table>
         )}
       </TableDiv>
+      {!props.loading && (
+        <Pagination
+          total={props.total}
+          numberOnPage={NUMBER_ON_PAGE}
+          currentPage={currentPage}
+          handleNext={handleNext}
+          handlePrevious={handlePrevious}
+        />
+      )}
     </>
   );
 };
